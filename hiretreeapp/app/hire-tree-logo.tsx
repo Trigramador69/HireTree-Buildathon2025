@@ -9,7 +9,7 @@ export function HireTreeLogo({ size = "md", className = "" }: HireTreeLogoProps)
   const sizeClasses = {
     sm: "w-8 h-8",
     md: "w-12 h-12",
-    lg: "w-24 h-24",
+    lg: "w-64 h-64",
   }
 
   return (

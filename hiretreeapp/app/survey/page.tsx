@@ -73,21 +73,21 @@ export default function NaturalInterview() {
   const [userData, setUserData] = useState<any>(null)
   const [answers, setAnswers] = useState<Record<string, string[]>>({})
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const hasStartedRef = useRef(false)
   const router = useRouter()
 
   useEffect(() => {
     const stored = localStorage.getItem("userData")
-    if (stored) {
+    if (stored && !hasStartedRef.current) {
       setUserData(JSON.parse(stored))
-    } else {
+      hasStartedRef.current = true
+      setTimeout(() => {
+        addInterviewerMessage(naturalQuestions[0].question)
+      }, 1500)
+    } else if (!stored) {
       router.push("/")
       return
     }
-
-    // Start interview
-    setTimeout(() => {
-      addInterviewerMessage(naturalQuestions[0].question)
-    }, 1500)
   }, [router])
 
   useEffect(() => {
@@ -103,7 +103,7 @@ export default function NaturalInterview() {
 
     setTimeout(() => {
       const newMessage: Message = {
-        id: Date.now().toString(),
+        id: `interviewer-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
         text,
         sender: "interviewer",
         timestamp: new Date(),
@@ -115,7 +115,7 @@ export default function NaturalInterview() {
 
   const addUserMessage = (text: string) => {
     const newMessage: Message = {
-      id: Date.now().toString(),
+      id: `user-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
       text,
       sender: "user",
       timestamp: new Date(),
@@ -219,7 +219,7 @@ export default function NaturalInterview() {
             <div className="h-[600px] overflow-y-auto p-6 space-y-4">
               {messages.map((message, index) => (
                 <div
-                  key={message.id}
+                  key={`${message.id}-${index}`}
                   className={`flex items-end gap-3 transition-all duration-500 ease-out ${
                     message.sender === "user" ? "flex-row-reverse" : ""
                   }`}
@@ -316,9 +316,9 @@ export default function NaturalInterview() {
         {/* Progress Indicator */}
         <div className="mt-6 text-center">
           <div className="flex justify-center space-x-2 mb-3">
-            {naturalQuestions.map((_, index) => (
+            {naturalQuestions.map((question, index) => (
               <div
-                key={index}
+                key={`progress-${question.id}-${index}`}
                 className={`w-3 h-3 rounded-full transition-all duration-500 ${
                   index <= currentQuestionIndex
                     ? "bg-gradient-to-r from-teal-500 to-cyan-500 shadow-lg scale-110"

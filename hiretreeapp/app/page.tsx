@@ -41,11 +41,14 @@ export default function HomePage() {
               <HireTreeLogo size="lg" />
             </div>
           </div>
-          <h1 className="text-5xl font-bold text-gray-800 mb-4 gradient-text">
-            Hire <span className="text-teal-600 animate-pulse">Tree</span>
+          <h1 className="text-5xl font-bold mb-4 relative z-20">
+            <span className="bg-white/50 backdrop-blur-md px-4 py-2 rounded-lg inline-block">
+              <span className="text-gray-800">Hire</span>{" "}
+              <span className="text-emerald-600 font-black drop-shadow-[0_2px_2px_rgba(0,0,0,0.2)] animate-pulse">Tree</span>
+            </span>
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: "0.3s" }}>
-            Descubre y certifica tus habilidades profesionales a través de IA avanzada. Genera tu certificado digital
+            Descubre y certifica tus habilidades profesionales a través de IA avanzada. Genera tu NFT digital
             único basado en tu perfil de competencias.
           </p>
         </div>
