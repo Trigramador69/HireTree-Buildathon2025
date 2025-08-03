@@ -29,3 +29,5 @@ Este proyecto aplica a la categoría de **Mejor caso de uso empresarial con eERC
 
 --
 
+Uso de Intelgencia Artificial:
+-Github Copilot , Chatgpt , Cloude
